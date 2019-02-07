@@ -82,6 +82,7 @@
     <Compile Include="Cadastro.aspx.designer.cs">
       <DependentUpon>Cadastro.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Jogador.cs" />
     <Compile Include="Listagem.aspx.cs">
       <DependentUpon>Listagem.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
