@@ -13,34 +13,36 @@ namespace Cadastro_Jogador
     public partial class Cadastro : System.Web.UI.Page
     {
         Jogador jogador = new Jogador();
+        List<string> help = new List<string>();
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            RangeValidator1.MaximumValue= (System.DateTime.Today.AddYears(-18).ToString("d"));
+            RangeValidator1.MaximumValue = (System.DateTime.Today.AddYears(-18).ToString("d"));
             RangeValidator1.MinimumValue = System.DateTime.Today.AddYears(-60).ToString("d");
-
-           
         }
 
         private bool UploadArquivo()
         {
-            if (FileUpload1.FileName !="") {
+            if (FileUpload1.FileName != "")
+            {
                 FileUpload1.SaveAs((@"C:\Users\lcosta\Desktop\Cadastro Jogador\"
                     + FileUpload1.FileName).ToString());
 
-                var nome = FileUpload1.FileName;
-                jogador.documentos.Add(nome);
+                string nome = FileUpload1.FileName;
                 return true;
             }
             return false;
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
+        protected void BUpload(object sender, EventArgs e)
         {
             try
             {
                 if (UploadArquivo())
                 {
+
+
                     Status.Text = "Importação realizada";
                 }
                 else

@@ -47,20 +47,21 @@
             <asp:Literal ID="Literal1" runat="server" Text="Carregar arquivos:"></asp:Literal>
             <asp:FileUpload ID="FileUpload1" style=" margin-left:30px;" runat="server" /> 
         <p>
-            <asp:Button ID="Import" runat="server" Text="Importar arquivos" OnClick="Button1_Click" />
+            <asp:Button ID="Import" runat="server" Text="Importar arquivos" OnClick="BUpload" />
             <asp:Literal ID="Status" runat="server"></asp:Literal>
         </p>
-        <asp:DataGrid id="ItemsGrid"
-           BorderColor="black"
-           BorderWidth="1"
-           CellPadding="3"
-           AutoGenerateColumns="true"
-           runat="server">
-
-         <HeaderStyle BackColor="#00aaaa">
-         </HeaderStyle> 
- 
-      </asp:DataGrid>
+         <asp:GridView ID="GridView1" AutoGenerateColumns="false" runat="server" OnRowDataBound="GridView1_RowDataBound">
+                <Columns>
+                    <asp:BoundField DataField="DocPath" HeaderText="Caminho do Arquivo" />
+                    <asp:TemplateField HeaderText="Tipo do Documento">
+                        <ItemTemplate>
+                            <asp:DropDownList ID="DropTipo" runat="server" AutoPostBack="true" ></asp:DropDownList>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+        </asp:GridView>
+           
+      
     </form>
 </body>
 </html>

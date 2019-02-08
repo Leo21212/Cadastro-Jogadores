@@ -9,10 +9,11 @@ namespace Cadastro_Jogador
     {
         public string Nome { get; set; }
         public DateTime Nascimento { get; set; }
-        public string endereco { get; set; }
+        public string Endereco { get; set; }
         public string CPF { get; set; }
-        public string posicao { get; set; }
-        public string time { get; set; }
-        public List<string> documentos = new List<string>();
+        public string Posicao { get; set; }
+        public string Time { get; set; }
+        public List<Documento> Documentos { get => documentos; set => documentos = value; }
+        private List<Documento> documentos = new List<Documento>();
     }
 }
