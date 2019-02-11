@@ -35,18 +35,25 @@
         </p>
             <asp:Literal ID="LtrCPF" runat="server" Text="CPF"></asp:Literal>
             <asp:TextBox ID="TxTCPF" runat="server"></asp:TextBox>
-            <asp:RangeValidator id="RangeValidatorCPF"
-               ControlToValidate="TxtCPF"
-               MinimumValue="11"
-               MaximumValue="11"
-               Type="Integer"
-               EnableClientScript="false"
-               Text="CPF deve conter 11 digitos"
-               runat="server"/>
+            <td>
+                <asp:RegularExpressionValidator id="RegularExpressionValidatorCPF" 
+                     ControlToValidate="TxTCPF"
+                     ValidationExpression="\d{11}"
+                     Display="Static"
+                     ErrorMessage="CPF deve conter 11 digitos"
+                     EnableClientScript="False" 
+                     runat="server"/>
+             </td>
         <br />
         <br />
-            <asp:Literal ID="LtrPosicao" runat="server" Text="Posicao"></asp:Literal>
-            <asp:TextBox ID="TxTPosicao" runat="server"></asp:TextBox>
+            <asp:Literal ID="LtrPosicao" runat="server" Text="Posição"></asp:Literal>
+            <asp:DropDownList ID="DropDownListPosicao" runat="server">
+                <asp:ListItem Text="Goleiro" ></asp:ListItem>
+                <asp:ListItem Text="Zagueiro" ></asp:ListItem>
+                <asp:ListItem Text="Lateral" ></asp:ListItem>
+                <asp:ListItem Text="Volante" ></asp:ListItem>
+                <asp:ListItem Text="Atacante" ></asp:ListItem>
+            </asp:DropDownList>
         <p>
             <asp:Literal ID="LtrTime" runat="server" Text="Time"></asp:Literal>
             <asp:TextBox ID="TxTTime" runat="server" ></asp:TextBox>

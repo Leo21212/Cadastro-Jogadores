@@ -12,9 +12,6 @@ namespace Cadastro_Jogador
 {
     public partial class Cadastro : System.Web.UI.Page
     {
-        Jogador Jogador = new Jogador();
-        
-
         protected void Page_Load(object sender, EventArgs e)
         {
             DataTable dtb = new DataTable();
@@ -113,7 +110,46 @@ namespace Cadastro_Jogador
 
         protected void Salvar_Click(object sender, EventArgs e)
         {
-            
+            if (RangeValidatorData.IsValid &&
+                    RegularExpressionValidatorCPF.IsValid &&
+                    TxTNome.ToString() != null &&
+                    TxTData.ToString() != null &&
+                    TxTEndereco.ToString() != null &&
+                    TxTCPF.ToString() != null &&
+                    TxTTime.ToString() != null)
+            {
+                using (var db = new CadastroContext())
+                {
+                    var queryID = "";
+
+                    queryID = "@SELECT NewID()";
+
+                    Jogador jogador = new Jogador();
+                    jogador.ID = queryID;
+                    jogador.Nome = TxTNome.ToString();
+                    jogador.Nascimento = TxTData.ToString();
+                    jogador.Endereco = TxTEndereco.ToString();
+                    jogador.CPF = TxTCPF.ToString();
+                    jogador.Posicao = DropDownListPosicao.SelectedItem.ToString();
+                    jogador.Time = TxTTime.ToString();
+                    List<Documento> newDoc2 = (List<Documento>)Session["mDocs"];
+                    foreach (Documento d in newDoc2)
+                    {
+                        d.IDJogador = jogador.ID;
+                        db.Documentos.Add(d);
+                    }
+                    db.Jogadores.Add(jogador);
+
+                    db.SaveChanges();
+
+                    Session["mDatatable"] = null;
+                    Session["mDocs"] = null;
+                    Response.Redirect("Tela Inicial.aspx");
+
+
+
+                }
+            }
         }
     }
 }

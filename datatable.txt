@@ -1,0 +1,45 @@
+<div>
+            <asp:DataGrid 
+                id="DataGrid1" runat="server" 
+                AutoGenerateColumns="False"  
+                OnItemDataBound="DataGrid1_ItemDataBound">
+                <Columns>
+                    <asp:BoundColumn DataField="CaminhoArquivo" HeaderText="Caminho do Arquivo" />
+                    <asp:TemplateColumn>
+                        <HeaderTemplate>
+                            <asp:Literal ID="TipoDoc" runat="server" Text="Tipo de documento"></asp:Literal>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <asp:DropDownList 
+                                ID="ItemDropDown" Runat="server"
+                                AutoPostBack="True" 
+                                OnSelectedIndexChanged="DropDown_SelectedIndexChanged" />
+                        </ItemTemplate>
+                    </asp:TemplateColumn>
+                </Columns>
+            </asp:DataGrid>
+        </div>
+
+
+------------------------------------
+ protected void DataGrid1_ItemDataBound(object sender, DataGridItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.AlternatingItem ||
+               e.Item.ItemType == ListItemType.Item)
+            {
+                string[] options = { "RG", "CPF", "Exame" };
+
+                DropDownList list = (DropDownList)e.Item.FindControl("ItemDropDown");
+                list.DataSource = options;
+                list.DataBind();
+            }
+        }
+
+        protected void DropDown_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList list = (DropDownList)sender;
+
+            TableCell cell = list.Parent as TableCell;
+            DataGridItem item = cell.Parent as DataGridItem;
+        }
+    }

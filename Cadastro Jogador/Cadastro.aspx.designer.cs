@@ -112,13 +112,13 @@ namespace Cadastro_Jogador {
         protected global::System.Web.UI.WebControls.TextBox TxTCPF;
         
         /// <summary>
-        /// Controle RangeValidatorCPF.
+        /// Controle RegularExpressionValidatorCPF.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator RangeValidatorCPF;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorCPF;
         
         /// <summary>
         /// Controle LtrPosicao.
@@ -130,13 +130,13 @@ namespace Cadastro_Jogador {
         protected global::System.Web.UI.WebControls.Literal LtrPosicao;
         
         /// <summary>
-        /// Controle TxTPosicao.
+        /// Controle DropDownListPosicao.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxTPosicao;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListPosicao;
         
         /// <summary>
         /// Controle LtrTime.
