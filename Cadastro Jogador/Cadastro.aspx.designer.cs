@@ -67,13 +67,13 @@ namespace Cadastro_Jogador {
         protected global::System.Web.UI.WebControls.TextBox TxTData;
         
         /// <summary>
-        /// Controle RangeValidator1.
+        /// Controle RangeValidatorData.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator1;
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidatorData;
         
         /// <summary>
         /// Controle LtrEndereco.
@@ -94,22 +94,31 @@ namespace Cadastro_Jogador {
         protected global::System.Web.UI.WebControls.TextBox TxTEndereco;
         
         /// <summary>
-        /// Controle Literal2.
+        /// Controle LtrCPF.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal2;
+        protected global::System.Web.UI.WebControls.Literal LtrCPF;
         
         /// <summary>
-        /// Controle TextBox1.
+        /// Controle TxTCPF.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox TxTCPF;
+        
+        /// <summary>
+        /// Controle RangeValidatorCPF.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidatorCPF;
         
         /// <summary>
         /// Controle LtrPosicao.
@@ -148,22 +157,31 @@ namespace Cadastro_Jogador {
         protected global::System.Web.UI.WebControls.TextBox TxTTime;
         
         /// <summary>
-        /// Controle Literal1.
+        /// Controle LtrCarregar.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal1;
+        protected global::System.Web.UI.WebControls.Literal LtrCarregar;
         
         /// <summary>
-        /// Controle FileUpload1.
+        /// Controle FileUploadDoc.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload FileUpload1;
+        protected global::System.Web.UI.WebControls.FileUpload FileUploadDoc;
+        
+        /// <summary>
+        /// Controle Tipos_de_arquivo.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList Tipos_de_arquivo;
         
         /// <summary>
         /// Controle Import.
@@ -191,5 +209,23 @@ namespace Cadastro_Jogador {
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridView1;
+        
+        /// <summary>
+        /// Controle Voltar.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Voltar;
+        
+        /// <summary>
+        /// Controle SalvarJog.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button SalvarJog;
     }
 }
