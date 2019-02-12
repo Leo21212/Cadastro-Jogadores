@@ -112,11 +112,11 @@ namespace Cadastro_Jogador
         {
             if (RangeValidatorData.IsValid &&
                     RegularExpressionValidatorCPF.IsValid &&
-                    TxTNome.ToString() != null &&
-                    TxTData.ToString() != null &&
-                    TxTEndereco.ToString() != null &&
-                    TxTCPF.ToString() != null &&
-                    TxTTime.ToString() != null)
+                    TxTNome.Text != "" &&
+                    TxTData.Text != "" &&
+                    TxTEndereco.Text != "" &&
+                    TxTCPF.Text != "" &&
+                    TxTTime.Text != "")
             {
                 using (var db = new CadastroContext())
                 {
@@ -126,12 +126,12 @@ namespace Cadastro_Jogador
 
                     Jogador jogador = new Jogador();
                     jogador.ID = queryID;
-                    jogador.Nome = TxTNome.ToString();
-                    jogador.Nascimento = TxTData.ToString();
-                    jogador.Endereco = TxTEndereco.ToString();
-                    jogador.CPF = TxTCPF.ToString();
-                    jogador.Posicao = DropDownListPosicao.SelectedItem.ToString();
-                    jogador.Time = TxTTime.ToString();
+                    jogador.Nome = TxTNome.Text;
+                    jogador.Nascimento = TxTData.Text;
+                    jogador.Endereco = TxTEndereco.Text;
+                    jogador.CPF = TxTCPF.Text;
+                    jogador.Posicao = DropDownListPosicao.SelectedItem.Text;
+                    jogador.Time = TxTTime.Text;
                     List<Documento> newDoc2 = (List<Documento>)Session["mDocs"];
                     foreach (Documento d in newDoc2)
                     {

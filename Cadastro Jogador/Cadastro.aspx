@@ -28,7 +28,7 @@
             <asp:RangeValidator ID="RangeValidatorData" runat="server" ControlToValidate="TxTData"
                 Type="Date"
                 EnableClientScript="false"
-                Text="Data de nascimento inválida"></asp:RangeValidator>
+                ErrorMessage="Data de nascimento inválida"></asp:RangeValidator>
         <p>
             <asp:Literal ID="LtrEndereco" runat="server" Text="Endereço"></asp:Literal>
             <asp:TextBox ID="TxTEndereco" runat="server"></asp:TextBox>
@@ -38,7 +38,7 @@
             <td>
                 <asp:RegularExpressionValidator id="RegularExpressionValidatorCPF" 
                      ControlToValidate="TxTCPF"
-                     ValidationExpression="\d{11}"
+                     ValidationExpression="\d{11}$"
                      Display="Static"
                      ErrorMessage="CPF deve conter 11 digitos"
                      EnableClientScript="False" 
