@@ -118,11 +118,11 @@ namespace Cadastro_Jogador
                     TxTCPF.Text != "" &&
                     TxTTime.Text != "")
             {
-                using (var db = new CadastroContext())
+                using (var db = new Model1())
                 {
                     var queryID = "";
 
-                    queryID = "@SELECT NewID()";
+                    queryID = Guid.NewGuid().ToString();
 
                     Jogador jogador = new Jogador();
                     jogador.ID = queryID;

@@ -50,6 +50,8 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -73,6 +75,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\CadastroJogador.mdf" />
+    <Content Include="App_Data\CadastroJogador_log.ldf">
+      <DependentUpon>CadastroJogador.mdf</DependentUpon>
+    </Content>
     <Content Include="Cadastro.aspx" />
     <Content Include="Listagem.aspx" />
     <Content Include="Tela Inicial.aspx" />
@@ -95,6 +101,7 @@
     <Compile Include="Listagem.aspx.designer.cs">
       <DependentUpon>Listagem.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Model1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tela Inicial.aspx.cs">
       <DependentUpon>Tela Inicial.aspx</DependentUpon>
