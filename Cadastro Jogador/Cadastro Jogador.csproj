@@ -80,6 +80,7 @@
       <DependentUpon>CadastroJogador.mdf</DependentUpon>
     </Content>
     <Content Include="Cadastro.aspx" />
+    <Content Include="Edit.aspx" />
     <Content Include="Listagem.aspx" />
     <Content Include="Tela Inicial.aspx" />
     <Content Include="Web.config" />
@@ -93,6 +94,13 @@
       <DependentUpon>Cadastro.aspx</DependentUpon>
     </Compile>
     <Compile Include="Documento.cs" />
+    <Compile Include="Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Jogador.cs" />
     <Compile Include="Listagem.aspx.cs">
       <DependentUpon>Listagem.aspx</DependentUpon>
