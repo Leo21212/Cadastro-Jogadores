@@ -17,9 +17,9 @@ namespace Cadastro_Jogador
         public string Time { get; set; }
     }
 
-    public class CadastroContext : DbContext
-    {
-        public DbSet<Jogador> Jogadores { get; set; }
-        public DbSet<Documento> Documentos { get; set; }
-    }
+    //public class CadastroContext : DbContext
+    //{
+    //    public DbSet<Jogador> Jogadores { get; set; }
+    //    public DbSet<Documento> Documentos { get; set; }
+    //}
 }

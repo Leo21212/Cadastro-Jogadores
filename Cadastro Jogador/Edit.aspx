@@ -64,7 +64,11 @@
             <asp:Literal ID="Status" runat="server"></asp:Literal>
         </p>
            
-        <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+        <asp:GridView ID="GridView1" runat="server" OnRowCommand="GridView1_RowCommand">
+            <Columns>
+                <asp:ButtonField ButtonType="Button" CommandName="Click_Delete" Text="Excluir" />
+            </Columns>
+        </asp:GridView>
     </form>
 </body>
 </html>

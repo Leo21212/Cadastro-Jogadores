@@ -72,7 +72,7 @@
             <asp:Literal ID="Status" runat="server"></asp:Literal>
         </p>
            
-        <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+        <asp:GridView ID="GridDOC" runat="server"></asp:GridView>
 
 
         <p>

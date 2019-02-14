@@ -202,13 +202,13 @@ namespace Cadastro_Jogador {
         protected global::System.Web.UI.WebControls.Literal Status;
         
         /// <summary>
-        /// Controle GridView1.
+        /// Controle GridDOC.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected global::System.Web.UI.WebControls.GridView GridDOC;
         
         /// <summary>
         /// Controle Voltar.

@@ -40,7 +40,7 @@ namespace Cadastro_Jogador
             //GridViewJogadores.DataSource = dados;
             //GridViewJogadores.DataBind();
 
-            using (var db = new Model1())
+            using (var db = new ConexaoDB())
             {
                 GridViewJogadores.DataSource = db.Jogadores.ToList();
                 GridViewJogadores.DataBind();
@@ -62,6 +62,11 @@ namespace Cadastro_Jogador
                 //}
                 Response.Redirect("Edit.aspx?id="+l);
             }
+        }
+
+        protected void Voltar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Tela_Inicial.aspx");
         }
     }
 }

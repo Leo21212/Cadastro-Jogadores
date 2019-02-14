@@ -17,8 +17,9 @@
                     <asp:ButtonField ButtonType="Button" Text="Editar" CommandName="EDT" />
                 </Columns>
             </asp:GridView>
-            
-
+            <p>
+                <asp:Button ID="Voltar" runat="server" Text="Voltar" OnClick="Voltar_Click" />
+            </p>
         </div>
     </form>
 </body>

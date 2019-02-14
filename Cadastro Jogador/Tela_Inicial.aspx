@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Tela Inicial.aspx.cs" Inherits="Cadastro_Jogador.Tela_Inicial" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Tela_Inicial.aspx.cs" Inherits="Cadastro_Jogador.Tela_Inicial" %>
 
 <!DOCTYPE html>
 

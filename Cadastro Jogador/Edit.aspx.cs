@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -13,15 +14,14 @@ namespace Cadastro_Jogador
         Jogador jog;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                using (var db = new Model1())
+            
+                using (var db = new ConexaoDB())
                 {
                     jog = db.Jogadores.Find(Request.QueryString["id"]);
                 }
-            }
+            
 
-            using (var db = new Model1())
+            using (var db = new ConexaoDB())
             {
                 var q = Request.QueryString["id"];
                 GridView1.DataSource = db.Documentos.Where(x => x.IDJogador == q).ToList();
@@ -44,15 +44,23 @@ namespace Cadastro_Jogador
         {
             if (FileUploadDoc.FileName != "")
             {
-                FileUploadDoc.SaveAs((@"C:\Users\lcosta\Desktop\Cadastro Jogador\"
-                    + FileUploadDoc.FileName).ToString());
+                if(!Directory.Exists(@"C:\Users\lcosta\Desktop\Cadastro Jogador\ArquivosImportados\" + jog.ID))
+                    Directory.CreateDirectory(@"C:\Users\lcosta\Desktop\Cadastro Jogador\ArquivosImportados\" + jog.ID);
+
+                FileUploadDoc.SaveAs((@"C:\Users\lcosta\Desktop\Cadastro Jogador\ArquivosImportados\" +
+                  jog.ID + @"\" + FileUploadDoc.FileName).ToString());
 
                 Documento doc = new Documento();
-                doc.Caminho = @"C:\Users\lcosta\Desktop\Cadastro Jogador\" + FileUploadDoc.FileName;
+                doc.Caminho = @"C:\Users\lcosta\Desktop\Cadastro Jogador\ArquivosImportados\" +
+                  jog.ID + @"\" + FileUploadDoc.FileName;
                 doc.Tipo = Tipos_de_arquivo.SelectedItem.ToString();
+                doc.IDJogador = Request.QueryString["id"];
+                doc.IDDocumento = Guid.NewGuid().ToString();
 
-                using (var db = new Model1())
+                using (var db = new ConexaoDB())
                 {
+                    db.Documentos.Add(doc);
+                    db.SaveChanges();
                     var q = Request.QueryString["id"];
                     GridView1.DataSource = db.Documentos.Where(x => x.IDJogador == q).ToList();
                     GridView1.DataBind();
@@ -81,6 +89,21 @@ namespace Cadastro_Jogador
             {
 
                 throw;
+            }
+        }
+
+        protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            var l = GridView1.Rows[Convert.ToInt32(e.CommandArgument)].Cells[1].Text;
+            using (var db = new ConexaoDB())
+            {
+                var d = db.Documentos.Find(l);
+                db.Documentos.Remove(d);
+                db.SaveChanges();
+                var q = Request.QueryString["id"];
+                GridView1.DataSource = db.Documentos.Where(x => x.IDJogador == q).ToList();
+                GridView1.DataBind();
+
             }
         }
     }
