@@ -144,15 +144,17 @@ namespace Cadastro_Jogador
             //Session["mDocs"] = null;
             using (var db = new ConexaoDB())
             {
-                foreach(var joga in db.Jogadores.Where(x => x.CPF == null))
-                {
-                    System.IO.File.Delete(@"C:\Users\lcosta\Documents\ArquivosImportados\"+joga.ID);
-                }
-                db.Jogadores.RemoveRange(db.Jogadores.Where(x => x.CPF == null));
                 foreach (var documento in db.Documentos.Where(x => x.IDJogador == jogador.ID))
                 {
                     System.IO.File.Delete(documento.Caminho);
                 }
+                foreach (var joga in db.Jogadores.Where(x => x.CPF == null))
+                {
+                    if (Directory.Exists(@"C:\Users\lcosta\Documents\ArquivosImportados\" + joga.ID))
+                        System.IO.Directory.Delete(@"C:\Users\lcosta\Documents\ArquivosImportados\" + joga.ID);
+                }
+                db.Jogadores.RemoveRange(db.Jogadores.Where(x => x.CPF == null));
+
                 db.Jogadores.RemoveRange(db.Jogadores.Where(x => x.CPF == null));
                 db.Documentos.RemoveRange(db.Documentos.Where(x => x.IDJogador == jogador.ID));
                 db.SaveChanges();
@@ -162,16 +164,18 @@ namespace Cadastro_Jogador
 
         protected void Salvar_Click(object sender, EventArgs e)
         {
-            if (RangeValidatorData.IsValid &&
+            using (var db = new ConexaoDB())
+            {
+                if (RangeValidatorData.IsValid &&
                     RegularExpressionValidatorCPF.IsValid &&
                     TxTNome.Text != "" &&
                     TxTData.Text != "" &&
                     TxTEndereco.Text != "" &&
                     TxTCPF.Text != "" &&
-                    TxTTime.Text != "")
+                    TxTTime.Text != "" &&
+                    db.Jogadores.Any(x => x.CPF == TxTCPF.Text) == false)
             {
-                using (var db = new ConexaoDB())
-                {
+                
                     jogador.Nome = TxTNome.Text;
                     jogador.Nascimento = TxTData.Text;
                     jogador.Endereco = TxTEndereco.Text;

@@ -5,19 +5,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<!doctype html>
+<html lang="en">
+</html>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
     <title></title>
 </head>
-<%--<script src="JQuery/Jquery.js" type="text/javascript">
-</script>
-<script src="JQuery/jquery.mask.js" type="text/javascript">
-</script>
-<script>$(function(){$(".data").mask('00/00/0000', {placeholder: "__/__/____"});})
-</script>--%>
-
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:Literal ID="LtrTitulo" runat="server" Text="Cadastro de Jogadores"></asp:Literal>
+            <p>
+                <asp:Literal ID="LtrTitulo" runat="server" Text="Cadastro de Jogadores"></asp:Literal>
+            </p>
         </div>
         <p>
             <asp:Literal ID="LtrNome" runat="server" Text="Nome"></asp:Literal>
@@ -29,10 +29,12 @@
                 Type="Date"
                 EnableClientScript="false"
                 ErrorMessage="Data de nascimento inválida"></asp:RangeValidator>
-        <p>
+        <br />
+        <br />
+            <p>
             <asp:Literal ID="LtrEndereco" runat="server" Text="Endereço"></asp:Literal>
             <asp:TextBox ID="TxTEndereco" runat="server"></asp:TextBox>
-        </p>
+            </p>
             <asp:Literal ID="LtrCPF" runat="server" Text="CPF"></asp:Literal>
             <asp:TextBox ID="TxTCPF" runat="server"></asp:TextBox>
             <td>
@@ -55,13 +57,18 @@
                 <asp:ListItem Text="Volante" ></asp:ListItem>
                 <asp:ListItem Text="Atacante" ></asp:ListItem>
             </asp:DropDownList>
-        <p>
-            <asp:Literal ID="LtrTime" runat="server" Text="Time"></asp:Literal>
-            <asp:TextBox ID="TxTTime" runat="server" ></asp:TextBox>
+        <br />
+        <br />
+            <p>
+            <asp:Literal ID="LtrTime" runat="server" Text="Time" ></asp:Literal>
+            <asp:TextBox ID="TxTTime" runat="server"  ></asp:TextBox>
+            </p>
             
         </p>
+            <p>
             <asp:Literal ID="LtrCarregar" runat="server" Text="Carregar arquivos:"></asp:Literal>
-            <asp:FileUpload ID="FileUploadDoc" style=" margin-left:30px;" runat="server" /> 
+            <asp:FileUpload ID="FileUploadDoc" style=" margin-left:20px;" runat="server" /> 
+            </p>
         <p>
             
             <asp:DropDownList ID="Tipos_de_arquivo" runat="server">
@@ -69,11 +76,11 @@
                 <asp:ListItem Text="CPF" ></asp:ListItem>
                 <asp:ListItem Text="Exame Médico" ></asp:ListItem>
             </asp:DropDownList>
-            <asp:Button ID="Import" runat="server" Text="Importar arquivos" OnClick="BUpload" />
+            <asp:Button ID="Import" runat="server" Text="Importar arquivos" OnClick="BUpload" class="btn btn-outline-secondary"/>
             <asp:Literal ID="Status" runat="server"></asp:Literal>
         </p>
            
-        <asp:GridView ID="GridDOC" runat="server" OnRowCommand="GridDOC_RowCommand">
+        <asp:GridView ID="GridDOC" runat="server" OnRowCommand="GridDOC_RowCommand" class="table table-striped table-dark">
             <Columns>
                 <asp:ButtonField ButtonType="Button" Text="Excluir" />
             </Columns>
@@ -81,8 +88,10 @@
 
 
         <p>
-            <asp:Button ID="Voltar" runat="server" Text="Voltar" OnClick="Voltar_Click" />
-            <asp:Button ID="SalvarJog" runat="server" Text="Salvar" OnClick="Salvar_Click"  />
+            <p>
+            <asp:Button ID="Voltar" runat="server" Text="Voltar" OnClick="Voltar_Click" class="btn btn-outline-secondary"/>
+            <asp:Button ID="SalvarJog" runat="server" Text="Salvar" OnClick="Salvar_Click"  class="btn btn-outline-secondary"/>
+            </p>
         </p>
     </form>
 </body>

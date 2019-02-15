@@ -92,17 +92,30 @@ namespace Cadastro_Jogador
 
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            var l = GridView1.Rows[Convert.ToInt32(e.CommandArgument)].Cells[1].Text;
-            using (var db = new ConexaoDB())
+            if (e.CommandName == "Click_Delete")
             {
-                var d = db.Documentos.Find(l);
-                db.Documentos.Remove(d);
-                db.SaveChanges();
-                System.IO.File.Delete(d.Caminho);
-                var q = Request.QueryString["id"];
-                GridView1.DataSource = db.Documentos.Where(x => x.IDJogador == q).ToList();
-                GridView1.DataBind();
+                var l = GridView1.Rows[Convert.ToInt32(e.CommandArgument)].Cells[2].Text;
+                using (var db = new ConexaoDB())
+                {
+                    var d = db.Documentos.Find(l);
+                    db.Documentos.Remove(d);
+                    db.SaveChanges();
+                    System.IO.File.Delete(d.Caminho);
+                    var q = Request.QueryString["id"];
+                    GridView1.DataSource = db.Documentos.Where(x => x.IDJogador == q).ToList();
+                    GridView1.DataBind();
 
+                }
+            }
+            else
+            {
+                var l = GridView1.Rows[Convert.ToInt32(e.CommandArgument)].Cells[2].Text;
+                using (var db = new ConexaoDB())
+                {
+                    var d = db.Documentos.Find(l);
+                    DownLoad(d.Caminho);
+
+                }
             }
         }
 
@@ -113,20 +126,33 @@ namespace Cadastro_Jogador
 
         protected void Salvar_Click(object sender, EventArgs e)
         {
+            List<string> aux = new List<string>();
+            var q = Request.QueryString["id"];
             using (var db = new ConexaoDB())
             {
-                var q = Request.QueryString["id"];
-                foreach (Jogador d in db.Jogadores.Where(x => x.ID == q).ToList())
+                foreach (Jogador r in db.Jogadores)
                 {
-                    d.Nome = TxTNome.Text;
-                    d.Nascimento = TxTData.Text;
-                    d.Endereco = TxTEndereco.Text;
-                    d.CPF = TxTCPF.Text;
-                    d.Posicao = DropDownListPosicao.SelectedItem.Text;
-                    d.Time = TxTTime.Text;
+                    if(r.ID!=q)
+                        aux.Add(r.CPF.ToString());
                 }
-                db.SaveChanges();
-                Response.Redirect("Listagem.aspx");
+
+                foreach (var n in aux)
+                {
+                    if (n != TxTCPF.Text)
+                    {
+                        foreach (Jogador d in db.Jogadores.Where(x => x.ID == q).ToList())
+                        {
+                            d.Nome = TxTNome.Text;
+                            d.Nascimento = TxTData.Text;
+                            d.Endereco = TxTEndereco.Text;
+                            d.CPF = TxTCPF.Text;
+                            d.Posicao = DropDownListPosicao.SelectedItem.Text;
+                            d.Time = TxTTime.Text;
+                        }
+                        db.SaveChanges();
+                        Response.Redirect("Listagem.aspx");
+                    }
+                }
             }
         }
 
@@ -135,12 +161,28 @@ namespace Cadastro_Jogador
             using (var db = new ConexaoDB())
             {
                 var q = Request.QueryString["id"];
-                db.Documentos.RemoveRange(db.Documentos.Where(x => x.IDJogador==q));
+
+                foreach (var documento in db.Documentos.Where(x => x.IDJogador == q))
+                {
+                    System.IO.File.Delete(documento.Caminho);
+                }
+                db.Documentos.RemoveRange(db.Documentos.Where(x => x.IDJogador == q));
                 db.Jogadores.RemoveRange(db.Jogadores.Where(x => x.ID == q));
-                System.IO.File.Delete(@"C:\Users\lcosta\Documents\ArquivosImportados\" +
-                      q);
+                System.IO.Directory.Delete(@"C:\Users\lcosta\Documents\ArquivosImportados\" + q.ToString());
                 db.SaveChanges();
                 Response.Redirect("Listagem.aspx");
+            }
+        }
+
+        public void DownLoad(string FName)
+        {
+            string path = FName;
+            System.IO.FileInfo file = new System.IO.FileInfo(path);
+            if (file.Exists)
+            {
+                Response.Clear();
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + file.Name); Response.AddHeader("Content-Length", file.Length.ToString());
+                Response.ContentType = "application/octet-stream"; // download […]
             }
         }
     }
