@@ -51,6 +51,7 @@
                 <asp:ListItem Text="Goleiro" ></asp:ListItem>
                 <asp:ListItem Text="Zagueiro" ></asp:ListItem>
                 <asp:ListItem Text="Lateral" ></asp:ListItem>
+                <asp:ListItem Text="Meia" ></asp:ListItem>
                 <asp:ListItem Text="Volante" ></asp:ListItem>
                 <asp:ListItem Text="Atacante" ></asp:ListItem>
             </asp:DropDownList>
@@ -72,7 +73,11 @@
             <asp:Literal ID="Status" runat="server"></asp:Literal>
         </p>
            
-        <asp:GridView ID="GridDOC" runat="server"></asp:GridView>
+        <asp:GridView ID="GridDOC" runat="server" OnRowCommand="GridDOC_RowCommand">
+            <Columns>
+                <asp:ButtonField ButtonType="Button" Text="Excluir" />
+            </Columns>
+        </asp:GridView>
 
 
         <p>

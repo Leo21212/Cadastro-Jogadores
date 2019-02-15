@@ -14,45 +14,43 @@ namespace Cadastro_Jogador
         Jogador jog;
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (!IsPostBack)
+            {
                 using (var db = new ConexaoDB())
                 {
                     jog = db.Jogadores.Find(Request.QueryString["id"]);
+                    var q = Request.QueryString["id"];
+                    GridView1.DataSource = db.Documentos.Where(x => x.IDJogador == q).ToList();
+                    GridView1.DataBind();
                 }
-            
 
-            using (var db = new ConexaoDB())
-            {
-                var q = Request.QueryString["id"];
-                GridView1.DataSource = db.Documentos.Where(x => x.IDJogador == q).ToList();
-                GridView1.DataBind();
+                TxTNome.Text = jog.Nome;
+                TxTData.Text = jog.Nascimento;
+                TxTEndereco.Text = jog.Endereco;
+                TxTTime.Text = jog.Time;
+                DropDownListPosicao.SelectedItem.Text = jog.Posicao;
+                TxTTime.Text = jog.Time;
+                TxTCPF.Text = jog.CPF;
+                RangeValidatorData.MaximumValue = (System.DateTime.Today.AddYears(-18).ToString("d"));
+                RangeValidatorData.MinimumValue = System.DateTime.Today.AddYears(-60).ToString("d");
             }
-
-            TxTNome.Text = jog.Nome;
-            TxTData.Text = jog.Nascimento;
-            TxTEndereco.Text = jog.Endereco;
-            TxTTime.Text = jog.Time;
-            DropDownListPosicao.SelectedItem.Text = jog.Posicao;
-            TxTTime.Text = jog.Time;
-            TxTCPF.Text = jog.CPF;
-            RangeValidatorData.MaximumValue = (System.DateTime.Today.AddYears(-18).ToString("d"));
-            RangeValidatorData.MinimumValue = System.DateTime.Today.AddYears(-60).ToString("d");
         }
 
 
         private bool UploadArquivo()
         {
+            var q = Request.QueryString["id"];
             if (FileUploadDoc.FileName != "")
             {
-                if(!Directory.Exists(@"C:\Users\lcosta\Desktop\Cadastro Jogador\ArquivosImportados\" + jog.ID))
-                    Directory.CreateDirectory(@"C:\Users\lcosta\Desktop\Cadastro Jogador\ArquivosImportados\" + jog.ID);
+                if (!Directory.Exists(@"C:\Users\lcosta\Documents\ArquivosImportados\" + q))
+                    Directory.CreateDirectory(@"C:\Users\lcosta\Documents\ArquivosImportados\" + q);
 
-                FileUploadDoc.SaveAs((@"C:\Users\lcosta\Desktop\Cadastro Jogador\ArquivosImportados\" +
-                  jog.ID + @"\" + FileUploadDoc.FileName).ToString());
+                FileUploadDoc.SaveAs((@"C:\Users\lcosta\Documents\ArquivosImportados\" +
+                     q + @"\" + FileUploadDoc.FileName).ToString());
 
                 Documento doc = new Documento();
-                doc.Caminho = @"C:\Users\lcosta\Desktop\Cadastro Jogador\ArquivosImportados\" +
-                  jog.ID + @"\" + FileUploadDoc.FileName;
+                doc.Caminho = @"C:\Users\lcosta\Documents\ArquivosImportados\" +
+                  q + @"\" + FileUploadDoc.FileName;
                 doc.Tipo = Tipos_de_arquivo.SelectedItem.ToString();
                 doc.IDJogador = Request.QueryString["id"];
                 doc.IDDocumento = Guid.NewGuid().ToString();
@@ -61,7 +59,7 @@ namespace Cadastro_Jogador
                 {
                     db.Documentos.Add(doc);
                     db.SaveChanges();
-                    var q = Request.QueryString["id"];
+                    q = Request.QueryString["id"];
                     GridView1.DataSource = db.Documentos.Where(x => x.IDJogador == q).ToList();
                     GridView1.DataBind();
                 }
@@ -100,10 +98,49 @@ namespace Cadastro_Jogador
                 var d = db.Documentos.Find(l);
                 db.Documentos.Remove(d);
                 db.SaveChanges();
+                System.IO.File.Delete(d.Caminho);
                 var q = Request.QueryString["id"];
                 GridView1.DataSource = db.Documentos.Where(x => x.IDJogador == q).ToList();
                 GridView1.DataBind();
 
+            }
+        }
+
+        protected void Voltar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Listagem.aspx");
+        }
+
+        protected void Salvar_Click(object sender, EventArgs e)
+        {
+            using (var db = new ConexaoDB())
+            {
+                var q = Request.QueryString["id"];
+                foreach (Jogador d in db.Jogadores.Where(x => x.ID == q).ToList())
+                {
+                    d.Nome = TxTNome.Text;
+                    d.Nascimento = TxTData.Text;
+                    d.Endereco = TxTEndereco.Text;
+                    d.CPF = TxTCPF.Text;
+                    d.Posicao = DropDownListPosicao.SelectedItem.Text;
+                    d.Time = TxTTime.Text;
+                }
+                db.SaveChanges();
+                Response.Redirect("Listagem.aspx");
+            }
+        }
+
+        protected void Deletar_Click(object sender, EventArgs e)
+        {
+            using (var db = new ConexaoDB())
+            {
+                var q = Request.QueryString["id"];
+                db.Documentos.RemoveRange(db.Documentos.Where(x => x.IDJogador==q));
+                db.Jogadores.RemoveRange(db.Jogadores.Where(x => x.ID == q));
+                System.IO.File.Delete(@"C:\Users\lcosta\Documents\ArquivosImportados\" +
+                      q);
+                db.SaveChanges();
+                Response.Redirect("Listagem.aspx");
             }
         }
     }

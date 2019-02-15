@@ -69,6 +69,13 @@
                 <asp:ButtonField ButtonType="Button" CommandName="Click_Delete" Text="Excluir" />
             </Columns>
         </asp:GridView>
+        <p>
+            <asp:Button ID="Voltar" runat="server" Text="Voltar" OnClick="Voltar_Click" />
+            <asp:Button ID="Salvar" runat="server" Text="Salvar" OnClick="Salvar_Click" />
+            <asp:Button ID="Deletar" runat="server" Text="Deletar Cadastro de Jogador" OnClick="Deletar_Click" />
+
+        </p>
+        
     </form>
 </body>
 </html>
