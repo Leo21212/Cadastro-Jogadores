@@ -34,26 +34,42 @@ namespace Cadastro_Jogador
             //this.GridDOC.DataSource = ((DataTable)Session["mDatatable"]).DefaultView;
             //this.GridDOC.DataBind();
 
+            if (!IsPostBack)
+            {
+                IDBackup.Text = Guid.NewGuid().ToString();
+                using (var db = new ConexaoDB())
+                {
+                    var q = db.Jogadores.Any(x => x.ID == jogador.ID);
+
+                    if (q == false)
+                    {
+                        db.Jogadores.Add(jogador);
+                        db.SaveChanges();
+                    }
+                }
+            }
+
+            jogador.ID = IDBackup.Text;
 
             RangeValidatorData.MaximumValue = (System.DateTime.Today.AddYears(-18).ToString("d"));
             RangeValidatorData.MinimumValue = System.DateTime.Today.AddYears(-60).ToString("d");
 
             using (var db = new ConexaoDB())
             {
-                var q = db.Jogadores.Any(x => x.CPF == null);
+                //var q = db.Jogadores.Any(x => x.ID == jogador.ID);
 
-                if (q == false)
-                {
-                    jogador.ID = Guid.NewGuid().ToString();
-                    db.Jogadores.Add(jogador);
-                }
+                //if (q == false)
+                //{
+                //    db.Jogadores.Add(jogador);
+                //    db.SaveChanges();
+                //}
 
-                else
-                {
-                    foreach (Jogador j in db.Jogadores.Where(x => x.CPF == null).ToList())
-                        jogador.ID = j.ID;
-                }
-                db.SaveChanges();
+                //else
+                //{
+                //    foreach (Jogador j in db.Jogadores.Where(x => x.CPF == null).ToList())
+                //        jogador.ID = j.ID;
+                //}
+                //db.SaveChanges();
                 GridDOC.DataSource = db.Documentos.Where(x => x.IDJogador == jogador.ID).ToList();
                 GridDOC.DataBind();
             }
@@ -148,15 +164,13 @@ namespace Cadastro_Jogador
                 {
                     System.IO.File.Delete(documento.Caminho);
                 }
-                foreach (var joga in db.Jogadores.Where(x => x.CPF == null))
+                foreach (var joga in db.Jogadores.Where(x => x.ID == jogador.ID))
                 {
                     if (Directory.Exists(@"C:\Users\lcosta\Documents\ArquivosImportados\" + joga.ID))
                         System.IO.Directory.Delete(@"C:\Users\lcosta\Documents\ArquivosImportados\" + joga.ID);
                 }
-                db.Jogadores.RemoveRange(db.Jogadores.Where(x => x.CPF == null));
-
-                db.Jogadores.RemoveRange(db.Jogadores.Where(x => x.CPF == null));
                 db.Documentos.RemoveRange(db.Documentos.Where(x => x.IDJogador == jogador.ID));
+                db.Jogadores.RemoveRange(db.Jogadores.Where(x => x.ID == jogador.ID));
                 db.SaveChanges();
             }
             Response.Redirect("Tela_Inicial.aspx");
@@ -172,8 +186,8 @@ namespace Cadastro_Jogador
                     TxTData.Text != "" &&
                     TxTEndereco.Text != "" &&
                     TxTCPF.Text != "" &&
-                    TxTTime.Text != "" &&
-                    db.Jogadores.Any(x => x.CPF == TxTCPF.Text) == false)
+                    TxTTime.Text != ""
+                    )
             {
                 
                     jogador.Nome = TxTNome.Text;
@@ -183,13 +197,13 @@ namespace Cadastro_Jogador
                     jogador.Posicao = DropDownListPosicao.SelectedItem.Text;
                     jogador.Time = TxTTime.Text;
                     //List<Documento> newDoc2 = (List<Documento>)Session["mDocs"];
-                    foreach (Documento d in db.Documentos.Where(x => x.IDJogador == null).ToList())
-                    {
-                        d.IDJogador = jogador.ID;
+                    //foreach (Documento d in db.Documentos.Where(x => x.IDJogador == null).ToList())
+                    //{
+                    //    d.IDJogador = jogador.ID;
 
-                    }
+                    //}
 
-                    foreach (Jogador d in db.Jogadores.Where(x => x.CPF == null).ToList())
+                    foreach (Jogador d in db.Jogadores.Where(x => x.ID == jogador.ID).ToList())
                     {
                         d.Nome = TxTNome.Text;
                         d.Nascimento = TxTData.Text;

@@ -211,6 +211,15 @@ namespace Cadastro_Jogador {
         protected global::System.Web.UI.WebControls.GridView GridDOC;
         
         /// <summary>
+        /// Controle IDBackup.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal IDBackup;
+        
+        /// <summary>
         /// Controle Voltar.
         /// </summary>
         /// <remarks>
